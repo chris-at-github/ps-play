@@ -1,0 +1,17 @@
+plugin.tx_ps_play {
+	view {
+		layoutRootPaths.0 = EXT:ps_play/Resources/Private/Layouts/
+		templateRootPaths.0 = EXT:ps_play/Resources/Private/Templates/
+		partialRootPaths.0 = EXT:ps_play/Resources/Private/Partials/
+	}
+
+	persistence {
+		storagePid = {$plugin.ps_play.persistence.storagePid}
+	}
+
+	mvc {
+		callDefaultActionIfActionCantBeResolved = 1
+	}
+}
+
+//config.contentObjectExceptionHandler = 0

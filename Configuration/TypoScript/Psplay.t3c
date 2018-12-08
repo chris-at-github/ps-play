@@ -1,0 +1,17 @@
+plugin.tx_ps_play {
+	view {
+		# cat=plugin.psplay/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:ps_play/Resources/Private/Templates/
+
+		# cat=plugin.psplay/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:ps_play/Resources/Private/Partials/
+
+		# cat=plugin.psplay/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:ps_play/Resources/Private/Layouts/
+	}
+
+	persistence {
+		# cat=plugin.play//a; type=string; label=Default storage PID
+		storagePid = 3
+	}
+}
