@@ -7,7 +7,7 @@ if(!defined('TYPO3_MODE')) {
 call_user_func(function() {
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'Ps.PsPlay',
+		'Ps.Play',
 		'Filter',
 		'Filter'
 	);

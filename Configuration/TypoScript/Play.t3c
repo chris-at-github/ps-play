@@ -1,13 +1,13 @@
-plugin.tx_ps_play {
+plugin.tx_play {
 	view {
 		# cat=plugin.psplay/file; type=string; label=Path to template root (FE)
-		templateRootPath = EXT:ps_play/Resources/Private/Templates/
+		templateRootPath = EXT:play/Resources/Private/Templates/
 
 		# cat=plugin.psplay/file; type=string; label=Path to template partials (FE)
-		partialRootPath = EXT:ps_play/Resources/Private/Partials/
+		partialRootPath = EXT:play/Resources/Private/Partials/
 
 		# cat=plugin.psplay/file; type=string; label=Path to template layouts (FE)
-		layoutRootPath = EXT:ps_play/Resources/Private/Layouts/
+		layoutRootPath = EXT:play/Resources/Private/Layouts/
 	}
 
 	persistence {
