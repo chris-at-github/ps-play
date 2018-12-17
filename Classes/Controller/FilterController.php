@@ -1,6 +1,6 @@
 <?php
 
-namespace Ps\PsPlay\Controller;
+namespace Ps\Play\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -34,5 +34,7 @@ namespace Ps\PsPlay\Controller;
  */
 class FilterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	public function indexAction() {
+		$filter = $this->objectManager->get(\Ps\Play\Service\FilterService::class);
+		$filter->get('search');
 	}
 }

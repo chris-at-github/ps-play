@@ -1,17 +1,2 @@
-plugin.tx_play {
-	view {
-		layoutRootPaths.0 = EXT:play/Resources/Private/Layouts/
-		templateRootPaths.0 = EXT:play/Resources/Private/Templates/
-		partialRootPaths.0 = EXT:play/Resources/Private/Partials/
-	}
-
-	persistence {
-		storagePid = {$plugin.play.persistence.storagePid}
-	}
-
-	mvc {
-		callDefaultActionIfActionCantBeResolved = 1
-	}
-}
-
-//config.contentObjectExceptionHandler = 0
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:play/Configuration/TypoScript/System/" extensions="t3s">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:play/Configuration/TypoScript/Plugin/" extensions="t3s">
