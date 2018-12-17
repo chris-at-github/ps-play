@@ -2,6 +2,8 @@
 
 namespace Ps\Play\Controller;
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +36,7 @@ namespace Ps\Play\Controller;
  */
 class FilterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	public function indexAction() {
-		$filter = $this->objectManager->get(\Ps\Play\Service\FilterService::class);
-		$filter->get('search');
+		$filter = $this->objectManager->get(\Ps\Play\Service\FilterService::class, $this->request, $this->configurationManager->getContentObject());
+		DebuggerUtility::var_dump($filter->get('search'));
 	}
 }

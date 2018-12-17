@@ -21,6 +21,27 @@ class FilterService {
 	protected $settings;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Request $request
+	 */
+	protected $request;
+
+	/**
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 */
+	protected $contentObject;
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
+	 * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObject
+	 * @return void
+	 */
+	public function __construct($request, $contentObject) {
+		$this->initializeSettings();
+		$this->request = $request;
+		$this->contentObject = $contentObject;
+	}
+
+	/**
 	 * return an instance of objectManager
 	 *
 	 * @return \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -38,7 +59,7 @@ class FilterService {
 	 *
 	 * @return array
 	 */
-	public function getSettings() {
+	public function initializeSettings() {
 		if(isset($this->settings) === false) {
 			$this->settings = $this->getObjectManager()->get(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class)->getConfiguration(
 				\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'Play', 'Filter'
@@ -55,7 +76,9 @@ class FilterService {
 	public function get($name) {
 		$return = [];
 
-		DebuggerUtility::var_dump($this->getSettings());
+		if(isset($this->settings['filter'][$name]) === true) {
+			$return = $this->settings['filter'][$name];
+		}
 
 		return $return;
 	}
