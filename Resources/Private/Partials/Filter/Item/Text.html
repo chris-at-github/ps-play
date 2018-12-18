@@ -1,7 +1,11 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:section name="Main">
 
-	<f:form.textfield name="{item.name}" value="" />dsfasfasdf
+	<f:form.textfield name="{filter.identifier}[{item.name}]" value="" />
+
+	<f:comment>
+		<f:form.textfield name="{filter.identifier}[{item.name}]" value="" />
+	</f:comment>
 
 </f:section>
 </html>

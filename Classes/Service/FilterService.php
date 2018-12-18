@@ -82,6 +82,8 @@ class FilterService {
 			// @see: https://docs.typo3.org/typo3cms/ExtbaseGuide/Fluid/ViewHelper/Form.html#fieldnameprefix
 			$return['namespace'] = $this->settings['filter'][$name]['namespace'];
 
+			$return['identifier'] = $this->getIdentifier();
+
 			// Items
 			$return['items'] = [];
 
@@ -93,5 +95,17 @@ class FilterService {
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Erzeugt einen eindeutigen Identifier fuer die Formularelemente, falls mehrere Filter auf einer Seite vorhanden sind
+	 *
+	 * @return string
+	 */
+	public function getIdentifier() {
+
+		// String Prefix muss vorhanden sein -> reiner Zahlenwert wirft Exception nach dem Absenden
+		// @see: https://wiki.typo3.org/Exception/CMS/1210858767
+		return 'f' . $this->contentObject->data['uid'];
 	}
 }
