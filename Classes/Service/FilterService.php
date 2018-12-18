@@ -21,6 +21,13 @@ class FilterService {
 	protected $settings;
 
 	/**
+	 * Filtereintrag (wird als Argument an den Konstruktor uebergeben)
+	 *
+	 * @var string $name
+	 */
+	protected $name;
+
+	/**
 	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Request $request
 	 */
 	protected $request;
@@ -31,11 +38,13 @@ class FilterService {
 	protected $contentObject;
 
 	/**
+	 * @param string $name
 	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
 	 * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObject
 	 * @return void
 	 */
-	public function __construct($request, $contentObject) {
+	public function __construct($name, $request, $contentObject) {
+		$this->name = $name;
 		$this->initializeSettings();
 		$this->request = $request;
 		$this->contentObject = $contentObject;
@@ -70,24 +79,24 @@ class FilterService {
 	}
 
 	/**
-	 * @param string $name
 	 * @return array
 	 */
-	public function get($name) {
+	public function get() {
 		$return = [];
 
-		if(isset($this->settings['filter'][$name]) === true) {
+		if(isset($this->settings['filter'][$this->name]) === true) {
 
 			// FieldNamePrefix
 			// @see: https://docs.typo3.org/typo3cms/ExtbaseGuide/Fluid/ViewHelper/Form.html#fieldnameprefix
-			$return['namespace'] = $this->settings['filter'][$name]['namespace'];
+			$return['namespace'] = $this->settings['filter'][$this->name]['namespace'];
 
+			// Gruppierung aller Filter unter einem Identifier
 			$return['identifier'] = $this->getIdentifier();
 
 			// Items
 			$return['items'] = [];
 
-			foreach($this->settings['filter'][$name]['items'] as $itemKey => $itemProperties) {
+			foreach($this->settings['filter'][$this->name]['items'] as $itemKey => $itemProperties) {
 				$return['items'][$itemKey] = array_merge($itemProperties, [
 					'name' => $itemKey
 				]);
@@ -97,13 +106,13 @@ class FilterService {
 		return $return;
 	}
 
-	public function getArguments($name) {
+	public function getArguments() {
 		$return = [];
 
 		if($this->request->hasArgument($this->getIdentifier()) === true) {
 			$arguments = $this->request->getArgument($this->getIdentifier());
 
-			foreach($this->settings['filter'][$name]['items'] as $itemKey => $itemProperties) {
+			foreach($this->settings['filter'][$this->name]['items'] as $itemKey => $itemProperties) {
 				if(isset($arguments[$itemKey]) === true) {
 					$return[$itemKey] = $arguments[$itemKey];
 				}
