@@ -9,7 +9,7 @@ plugin.tx_play.settings.filter {
 			categories {
 				renderType = singleCheckbox
 				dataProvider {
-					Ps\Play\Filter\DataProvider\ParentCategoryDataProvider {
+					Ps\Play\Filter\DataProvider\CategoryDataProvider {
 						parent = 1
 					}
 				}
