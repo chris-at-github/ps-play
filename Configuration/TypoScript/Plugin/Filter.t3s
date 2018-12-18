@@ -5,6 +5,15 @@ plugin.tx_play.settings.filter {
 			searchword {
 				renderType = text
 			}
+
+			categories {
+				renderType = singleCheckbox
+				dataProvider {
+					Ps\Play\Filter\DataProvider\ParentCategoryDataProvider {
+						uid = 1
+					}
+				}
+			}
 		}
 	}
 }

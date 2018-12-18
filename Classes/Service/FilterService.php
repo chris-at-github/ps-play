@@ -100,6 +100,14 @@ class FilterService {
 				$return['items'][$itemKey] = array_merge($itemProperties, [
 					'name' => $itemKey
 				]);
+
+				// DataProvider
+				if(isset($itemProperties['dataProvider']) === true) {
+					foreach($itemProperties['dataProvider'] as $dataProviderFqcn => $dataProviderProperties) {
+						$dataProvider = $this->getObjectManager()->get($dataProviderFqcn);
+						$return['items'][$itemKey] = $dataProvider->provide($return['items'][$itemKey], $dataProviderProperties);
+					}
+				}
 			}
 		}
 
@@ -131,6 +139,6 @@ class FilterService {
 
 		// String Prefix muss vorhanden sein -> reiner Zahlenwert wirft Exception nach dem Absenden
 		// @see: https://wiki.typo3.org/Exception/CMS/1210858767
-		return 'f' . $this->contentObject->data['uid'];
+		return md5($this->contentObject->data['uid']);
 	}
 }

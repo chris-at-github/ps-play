@@ -1,0 +1,12 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Main">
+
+	<f:for each="{item.data}" key="value" as="properties">
+		<label>
+			<span>{properties.label}</span>
+			<f:form.checkbox name="{filter.identifier}[{item.name}][]" value="{value}" />
+		</label>
+	</f:for>
+
+</f:section>
+</html>
