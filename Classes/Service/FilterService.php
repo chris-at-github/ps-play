@@ -77,7 +77,19 @@ class FilterService {
 		$return = [];
 
 		if(isset($this->settings['filter'][$name]) === true) {
-			$return = $this->settings['filter'][$name];
+
+			// FieldNamePrefix
+			// @see: https://docs.typo3.org/typo3cms/ExtbaseGuide/Fluid/ViewHelper/Form.html#fieldnameprefix
+			$return['namespace'] = $this->settings['filter'][$name]['namespace'];
+
+			// Items
+			$return['items'] = [];
+
+			foreach($this->settings['filter'][$name]['items'] as $itemKey => $itemProperties) {
+				$return['items'][$itemKey] = array_merge($itemProperties, [
+					'name' => $itemKey
+				]);
+			}
 		}
 
 		return $return;

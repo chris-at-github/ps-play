@@ -37,6 +37,6 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 class FilterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	public function indexAction() {
 		$filter = $this->objectManager->get(\Ps\Play\Service\FilterService::class, $this->request, $this->configurationManager->getContentObject());
-		DebuggerUtility::var_dump($filter->get('search'));
+		$this->view->assign('filter', $filter->get('search'));
 	}
 }

@@ -2,6 +2,8 @@
 	<f:layout name="Default" />
 
 	<f:section name="Main">
-
+		<f:if condition="{filter}">
+			<f:render partial="Filter/Listing" arguments="{_all}" section="Main" />
+		</f:if>
 	</f:section>
 </html>

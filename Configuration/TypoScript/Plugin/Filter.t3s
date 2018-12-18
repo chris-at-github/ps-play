@@ -1,9 +1,10 @@
 plugin.tx_play.settings.filter {
 	search {
-		namespace = tx_play_filter
-
-		searchword {
-			renderType = text
+		namespace = tx_play_xyz
+		items {
+			searchword {
+				renderType = text
+			}
 		}
 	}
 }
