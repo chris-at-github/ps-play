@@ -10,7 +10,7 @@ plugin.tx_play.settings.filter {
 				renderType = singleCheckbox
 				dataProvider {
 					Ps\Play\Filter\DataProvider\ParentCategoryDataProvider {
-						uid = 1
+						parent = 1
 					}
 				}
 			}

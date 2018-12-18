@@ -106,7 +106,7 @@ class FilterService {
 
 					// Immer ein Data Eintrag zur Verfuegung stellen
 					if(isset($itemProperties['dataProvider']['data']) === false) {
-						$itemProperties['dataProvider']['data'] = [];
+						$itemProperties['data'] = [];
 					}
 
 					foreach($itemProperties['dataProvider'] as $dataProviderFqcn => $dataProviderProperties) {

@@ -16,15 +16,21 @@ class ParentCategoryDataProvider extends AbstractDataProvider {
 	 */
 	public function provide($data, $properties) {
 		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('sys_category')->createQueryBuilder();
-		$statement = $queryBuilder->select('uid', 'title')
-			->from('sys_category')
-			->where(
-				$queryBuilder->expr()->eq('parent', $queryBuilder->createNamedParameter($properties['uid'], \PDO::PARAM_INT))
-			)
-			->execute();
+		$query = $queryBuilder->select('uid', 'title')
+			->from('sys_category');
+
+		if(isset($properties['parent']) === true) {
+			$queryBuilder->where(
+				$queryBuilder->expr()->eq('parent', $queryBuilder->createNamedParameter($properties['parent'], \PDO::PARAM_INT))
+			);
+		}
+
+		$statement = $query->execute();
 
 		while($row = $statement->fetch()) {
-			DebuggerUtility::var_dump($row);
+			$data['data'][$row['uid']] = [
+				'label' => $row['title']
+			];
 		}
 
 		return $data;
