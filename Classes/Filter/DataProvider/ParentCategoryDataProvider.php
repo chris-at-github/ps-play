@@ -3,6 +3,9 @@
 namespace Ps\Play\Filter\DataProvider;
 
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Connection;
 
 class ParentCategoryDataProvider extends AbstractDataProvider {
 
@@ -12,14 +15,17 @@ class ParentCategoryDataProvider extends AbstractDataProvider {
 	 * @return array $data
 	 */
 	public function provide($data, $properties) {
-		$data['data'] = [
-			78 => [
-				'label' => 'Thema A'
-			],
-			63 => [
-				'label' => 'Thema B'
-			],
-		];
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('sys_category')->createQueryBuilder();
+		$statement = $queryBuilder->select('uid', 'title')
+			->from('sys_category')
+			->where(
+				$queryBuilder->expr()->eq('parent', $queryBuilder->createNamedParameter($properties['uid'], \PDO::PARAM_INT))
+			)
+			->execute();
+
+		while($row = $statement->fetch()) {
+			DebuggerUtility::var_dump($row);
+		}
 
 		return $data;
 	}

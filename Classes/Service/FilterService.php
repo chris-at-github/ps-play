@@ -103,6 +103,12 @@ class FilterService {
 
 				// DataProvider
 				if(isset($itemProperties['dataProvider']) === true) {
+
+					// Immer ein Data Eintrag zur Verfuegung stellen
+					if(isset($itemProperties['dataProvider']['data']) === false) {
+						$itemProperties['dataProvider']['data'] = [];
+					}
+
 					foreach($itemProperties['dataProvider'] as $dataProviderFqcn => $dataProviderProperties) {
 						$dataProvider = $this->getObjectManager()->get($dataProviderFqcn);
 						$return['items'][$itemKey] = $dataProvider->provide($return['items'][$itemKey], $dataProviderProperties);
