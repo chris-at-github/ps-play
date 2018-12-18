@@ -97,6 +97,22 @@ class FilterService {
 		return $return;
 	}
 
+	public function getArguments($name) {
+		$return = [];
+
+		if($this->request->hasArgument($this->getIdentifier()) === true) {
+			$arguments = $this->request->getArgument($this->getIdentifier());
+
+			foreach($this->settings['filter'][$name]['items'] as $itemKey => $itemProperties) {
+				if(isset($arguments[$itemKey]) === true) {
+					$return[$itemKey] = $arguments[$itemKey];
+				}
+			}
+		}
+
+		return $return;
+	}
+
 	/**
 	 * Erzeugt einen eindeutigen Identifier fuer die Formularelemente, falls mehrere Filter auf einer Seite vorhanden sind
 	 *

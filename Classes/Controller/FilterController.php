@@ -38,5 +38,7 @@ class FilterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 	public function indexAction() {
 		$filter = $this->objectManager->get(\Ps\Play\Service\FilterService::class, $this->request, $this->configurationManager->getContentObject());
 		$this->view->assign('filter', $filter->get('search'));
+
+		DebuggerUtility::var_dump($filter->getArguments('search'));
 	}
 }
