@@ -29,9 +29,16 @@ class CategoryDataProvider extends AbstractDataProvider {
 
 		while($row = $statement->fetch()) {
 			$data['data'][$row['uid']] = [
-				'label' => $row['title']
+				'label' => $row['title'],
+				'selected' => false
 			];
+
+			if(in_array($row['uid'], $data['selected']) === true) {
+				$data['data'][$row['uid']]['selected'] = true;
+			}
 		}
+
+		DebuggerUtility::var_dump($data);
 
 		return $data;
 	}

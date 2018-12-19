@@ -96,10 +96,17 @@ class FilterService {
 			// Items
 			$return['items'] = [];
 
-			foreach($this->settings['filter'][$this->name]['items'] as $itemKey => $itemProperties) {
-				$return['items'][$itemKey] = array_merge($itemProperties, [
-					'name' => $itemKey
+			foreach($this->settings['filter'][$this->name]['items'] as $itemName => $itemProperties) {
+				$return['items'][$itemName] = array_merge($itemProperties, [
+					'name' => $itemName,
+					'selected' => null
 				]);
+				
+				// Eventuelle Parameter verarbeiten
+				$arguments = $this->getArguments();
+				if(isset($arguments[$itemName]) === true) {
+					$return['items'][$itemName]['selected'] = $arguments[$itemName];
+				}
 
 				// DataProvider
 				if(isset($itemProperties['dataProvider']) === true) {
@@ -111,7 +118,7 @@ class FilterService {
 
 					foreach($itemProperties['dataProvider'] as $dataProviderFqcn => $dataProviderProperties) {
 						$dataProvider = $this->getObjectManager()->get($dataProviderFqcn);
-						$return['items'][$itemKey] = $dataProvider->provide($return['items'][$itemKey], $dataProviderProperties);
+						$return['items'][$itemName] = $dataProvider->provide($return['items'][$itemName], $dataProviderProperties);
 					}
 				}
 			}
