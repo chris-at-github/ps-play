@@ -144,6 +144,8 @@ class FilterService {
 
 					foreach($itemProperties['dataProvider'] as $dataProviderFqcn => $dataProviderProperties) {
 						$dataProvider = $this->getObjectManager()->get($dataProviderFqcn);
+						$dataProvider->setFilter($this);
+
 						$return['items'][$itemName] = $dataProvider->provide($return['items'][$itemName], $dataProviderProperties);
 					}
 				}
