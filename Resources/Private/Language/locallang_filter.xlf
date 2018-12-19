@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-18T08:10:26Z" product-name="play">
+		<header/>
+		<body>
+
+			<trans-unit id="searchword.label">
+				<source>Suchgegriff LOCALLANG</source>
+			</trans-unit>
+			<trans-unit id="searchword.placeholder">
+				<source>Placeholder LOCALLANG</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

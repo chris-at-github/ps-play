@@ -8,7 +8,9 @@ plugin.tx_play.settings.filter {
 		items {
 			searchword {
 				renderType = text
-				default = Xyz
+#				default = Xyz
+				label = LLL:EXT:play/Resources/Private/Language/locallang_filter.xlf:searchword.label
+				placeholder = LLL:EXT:play/Resources/Private/Language/locallang_filter.xlf:searchword.placeholder
 			}
 
 			categories {

@@ -127,8 +127,12 @@ class FilterService {
 					'name' => $itemName,
 					'selected' => null
 				]);
-				
-				// Eventuelle Parameter verarbeiten
+
+				// Label und Placeholder durch Language-Datei gesetzt?
+				$return['items'][$itemName]['label'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($return['items'][$itemName]['label']);
+				$return['items'][$itemName]['placeholder'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($return['items'][$itemName]['placeholder']);
+
+					// Eventuelle Parameter verarbeiten
 				$arguments = $this->getArguments();
 				if(isset($arguments[$itemName]) === true) {
 					$return['items'][$itemName]['selected'] = $arguments[$itemName];
