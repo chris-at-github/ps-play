@@ -1,6 +1,10 @@
 plugin.tx_play.settings.filter {
 	search {
 		namespace = tx_play_filter
+		fixed {
+			pid = 10
+		}
+
 		items {
 			searchword {
 				renderType = text

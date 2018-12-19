@@ -2,10 +2,8 @@
 
 namespace Ps\Play\Filter\DataProvider;
 
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Connection;
 
 class CategoryDataProvider extends AbstractDataProvider {
 

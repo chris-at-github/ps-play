@@ -39,6 +39,14 @@ class FilterService {
 	protected $contentObject;
 
 	/**
+	 * Fix Parameter, die immer gelten und nicht durch den Anwender ueberschrieben werden koennen.
+	 * Diese dienen ebenfalls DataProvidern um ihre Suchkriterien einzugrenzen z.B. Jahresauswahl von News
+	 *
+	 * @var array
+	 */
+	protected $fixedArguments = [];
+
+	/**
 	 * @param string $name
 	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Request $request
 	 * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObject
@@ -46,9 +54,11 @@ class FilterService {
 	 */
 	public function __construct($name, $request, $contentObject) {
 		$this->name = $name;
-		$this->initializeSettings();
 		$this->request = $request;
 		$this->contentObject = $contentObject;
+
+		$this->initializeSettings();
+		$this->initializeFixedArguments();
 	}
 
 	/**
@@ -77,6 +87,21 @@ class FilterService {
 		}
 
 		return $this->settings;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function initializeFixedArguments() {
+		if(isset($this->settings['filter'][$this->name]['fixed']) === true) {
+			foreach($this->settings['filter'][$this->name]['fixed'] as $fixedName => $fixedValue) {
+				$this->fixedArguments[$fixedName] = $fixedValue;
+
+				if(strpos($fixedValue, ',') !== false) {
+					$this->fixedArguments[$fixedName] = GeneralUtility::trimExplode(',', $fixedValue);
+				}
+			}
+		}
 	}
 
 	/**
@@ -153,6 +178,13 @@ class FilterService {
 			}
 		}
 
+		// Verarbeite fixierte Argumente (als letztes -> falls doppelte Keys vorhanden sind)
+		$fixedArguments = $this->getFixedArguments();
+
+		foreach($fixedArguments as $fixedName => $fixedValue) {
+			$arguments[$fixedName] = $fixedValue;
+		}
+
 		return $arguments;
 	}
 
@@ -166,5 +198,29 @@ class FilterService {
 		// String Prefix muss vorhanden sein -> reiner Zahlenwert wirft Exception nach dem Absenden
 		// @see: https://wiki.typo3.org/Exception/CMS/1210858767
 		return md5($this->contentObject->data['uid']);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getFixedArguments() {
+		return $this->fixedArguments;
+	}
+
+	/**
+	 * @param array $fixedArguments
+	 */
+	public function setFixedArguments(array $fixedArguments) {
+		$this->fixedArguments = $fixedArguments;
+	}
+
+	/**
+	 * Setzt ein neues fixiertes Argument
+	 *
+	 * @param string $name
+	 * @param mixed $value
+	 */
+	public function addFixedArgument($name, $value) {
+		$this->fixedArguments[$name] = $value;
 	}
 }
