@@ -27,6 +27,11 @@ class CategoryDataProvider extends AbstractDataProvider {
 
 		$statement = $query->execute();
 
+		// Zum Verarbeiten muss der Selected Wert immer ein Array sein (kann durch Default ein String sein)
+		if(gettype($data['selected']) !== 'array') {
+			$data['selected'] = [$data['selected']];
+		}
+
 		while($row = $statement->fetch()) {
 			$data['data'][$row['uid']] = [
 				'label' => $row['title'],
@@ -37,8 +42,6 @@ class CategoryDataProvider extends AbstractDataProvider {
 				$data['data'][$row['uid']]['selected'] = true;
 			}
 		}
-
-		DebuggerUtility::var_dump($data);
 
 		return $data;
 	}

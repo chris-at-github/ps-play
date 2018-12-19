@@ -2,6 +2,7 @@
 
 namespace Ps\Play\Service;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class FilterService {
@@ -128,19 +129,31 @@ class FilterService {
 	}
 
 	public function getArguments() {
-		$return = [];
+		$arguments = [];
 
 		if($this->request->hasArgument($this->getIdentifier()) === true) {
-			$arguments = $this->request->getArgument($this->getIdentifier());
+			$request = $this->request->getArgument($this->getIdentifier());
 
-			foreach($this->settings['filter'][$this->name]['items'] as $itemKey => $itemProperties) {
-				if(isset($arguments[$itemKey]) === true) {
-					$return[$itemKey] = $arguments[$itemKey];
+			foreach($this->settings['filter'][$this->name]['items'] as $itemName => $itemProperties) {
+				if(isset($request[$itemName]) === true) {
+					$arguments[$itemName] = $request[$itemName];
+				}
+			}
+
+		// Verarbeite Default-Variablen
+		} else {
+			foreach($this->settings['filter'][$this->name]['items'] as $itemName => $itemProperties) {
+				if(isset($itemProperties['default']) === true) {
+					$arguments[$itemName] = $itemProperties['default'];
+
+					if(strpos($arguments[$itemName], ',') !== false) {
+						$arguments[$itemName] = GeneralUtility::trimExplode(',', $arguments[$itemName]);
+					}
 				}
 			}
 		}
 
-		return $return;
+		return $arguments;
 	}
 
 	/**

@@ -4,10 +4,12 @@ plugin.tx_play.settings.filter {
 		items {
 			searchword {
 				renderType = text
+				default = Xyz
 			}
 
 			categories {
 				renderType = singleCheckbox
+				default = 2
 				dataProvider {
 					Ps\Play\Filter\DataProvider\CategoryDataProvider {
 						parent = 1
